@@ -1,7 +1,7 @@
 import { createStore, compose } from 'redux';
 import { persistState } from 'redux-devtools';
 import rootReducer from '../reducers';
-import DevTools from '../containers/DevTools';
+import DevTools from '../containers/TodoAppDev';
 
 const finalCreateStore = compose(
   DevTools.instrument(),
@@ -14,6 +14,7 @@ const finalCreateStore = compose(
 
 export default function configureStore(initialState) {
   const store = finalCreateStore(rootReducer, initialState);
+  window.store = store;
 
   if (module.hot) {
     module.hot.accept('../reducers', () =>

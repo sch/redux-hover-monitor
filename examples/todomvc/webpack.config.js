@@ -19,6 +19,7 @@ module.exports = {
   ],
   resolve: {
     alias: {
+      'redux-hover-monitor': path.join(__dirname, '..', '..', 'src/HoverMonitor'),
       'redux-slider-monitor': path.join(__dirname, '..', '..', 'src/SliderMonitor'),
       'react': path.join(__dirname, 'node_modules', 'react')
     },

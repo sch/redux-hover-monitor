@@ -262,6 +262,7 @@ export default class SliderMonitor extends Component {
   }
 
   render() {
+    console.log(this.props)
     const { currentStateIndex, computedStates } = this.props;
     const { replaySpeed } = this.state;
     const theme = this.setUpTheme();

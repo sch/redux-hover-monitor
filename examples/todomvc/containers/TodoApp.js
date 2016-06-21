@@ -15,9 +15,11 @@ class TodoApp extends Component {
     const { todos, actions } = this.props;
 
     return (
-      <div>
-        <Header addTodo={actions.addTodo} />
-        <MainSection todos={todos} actions={actions} />
+      <div className='Page'>
+        <div className='todoapp'>
+          <Header addTodo={actions.addTodo} />
+          <MainSection todos={todos} actions={actions} />
+        </div>
       </div>
     );
   }
