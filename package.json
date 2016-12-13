@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "css-element-queries": "^0.3.2",
-    "lodash": "^4.13.1",
+    "react-with-mouse": "^1.0.1",
     "redux-devtools-themes": "^1.0.0"
   }
 }
