@@ -5,7 +5,16 @@ const styles = {
   ToggleStateButtonContainer: {
     position: 'fixed',
     bottom: '1em',
-    right: '1em'
+    right: '1em',
+    display: 'flex',
+    alignItems: 'center'
+  },
+  ToggleStateActionInfo: {
+    display: 'block',
+    backgroundColor: 'white',
+    height: '100%',
+    paddingRight: '1.618em',
+    fontFamily: 'SFMono-Medium, "Inconsolata", monospace',
   },
   ToggleStateButton: {
     borderRadius: '0.2em',
@@ -25,7 +34,39 @@ const styles = {
   }
 };
 
-export default function ToggleStateButton({ onPress, withAction }) {
+function ActionInfo({ metaAction }) {
+  const { action: { type: actionType, ...actionParams } } = metaAction
+
+  const actionTypeElement = React.createElement('div', {
+    style: {
+      fontFamily: 'SFMono-Medium, monospace',
+      textAlign: 'right'
+    }
+  }, actionType);
+
+  const actionParamsElement = React.createElement('div', {
+    style: { fontFamily: 'SFMono-Regular, monospace' }
+  }, JSON.stringify(actionParams, null, 2));
+
+  return React.createElement('div', {
+    style: styles.ToggleStateActionInfo
+  }, actionTypeElement, actionParamsElement);
+}
+
+function Fader({ visible, children }) {
+  return React.createElement('div', {
+    style: {
+      transitionDuration: '0.25s',
+      transitionProperty: 'opacity',
+      opacity: visible ? 1 : 0
+    }
+  }, children);
+}
+
+export default function ToggleStateButton({ onPress, withAction, currentAction }) {
+  const info = React.createElement(Fader, { visible: withAction },
+    React.createElement(ActionInfo, { metaAction: currentAction }));
+
   const button = React.createElement('button', {
     style: Object.assign({}, styles.ToggleStateButton, withAction ? styles.ToggleStateButtonSelected : {}),
     onClick: onPress
@@ -33,5 +74,5 @@ export default function ToggleStateButton({ onPress, withAction }) {
 
   return React.createElement('div', {
     style: styles.ToggleStateButtonContainer
-  }, button);
+  }, info, button);
 }

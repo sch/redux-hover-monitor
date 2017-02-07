@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import * as themes from 'redux-devtools-themes';
 import { ActionCreators } from 'redux-devtools';
 
 import reducer from './reducers';
@@ -22,16 +21,11 @@ export default class SliderMonitor extends Component {
     }),
     preserveScrollTop: PropTypes.bool,
     stagedActions: PropTypes.array,
-    select: PropTypes.func.isRequired,
-    theme: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.string
-    ])
+    select: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     select: (state) => state,
-    theme: 'nicinabox',
     preserveScrollTop: true
   };
 
@@ -46,21 +40,6 @@ export default class SliderMonitor extends Component {
       timer: undefined,
       replaySpeed: '1x'
     };
-  }
-
-  setUpTheme = () => {
-    let theme;
-    if (typeof this.props.theme === 'string') {
-      if (typeof themes[this.props.theme] !== 'undefined') {
-        theme = themes[this.props.theme];
-      } else {
-        theme = themes.nicinabox;
-      }
-    } else {
-      theme = this.props.theme;
-    }
-
-    return theme;
   }
 
   handleReset = () => {
@@ -247,7 +226,7 @@ export default class SliderMonitor extends Component {
     }
   }
 
-  containerStyle = (theme) => {
+  containerStyle = () => {
     return {
       height: '100%',
       fontFamily: 'monospace',
@@ -256,7 +235,6 @@ export default class SliderMonitor extends Component {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      background: theme.base00,
       WebkitUserSelect: 'none', MozUserSelect: 'none', MsUserSelect: 'none'
     };
   }
@@ -265,15 +243,14 @@ export default class SliderMonitor extends Component {
     console.log(this.props)
     const { currentStateIndex, computedStates } = this.props;
     const { replaySpeed } = this.state;
-    const theme = this.setUpTheme();
 
     const onPlayClick = replaySpeed === 'Live' ? this.startRealtimeReplay : this.startReplay;
     const playPause = this.state.timer ?
-      <SliderButton theme={theme} type='pause' onClick={this.pauseReplay} /> :
-      <SliderButton theme={theme} type='play' onClick={onPlayClick} />;
+      <SliderButton type='pause' onClick={this.pauseReplay} /> :
+      <SliderButton type='play' onClick={onPlayClick} />;
 
     return (
-      <div style={this.containerStyle(theme)}>
+      <div style={this.containerStyle()}>
         {playPause}
         <div style={{ flex: 18 }}>
           <Slider
@@ -281,14 +258,13 @@ export default class SliderMonitor extends Component {
             max={computedStates.length - 1}
             value={currentStateIndex}
             onChange={this.handleSliderChange}
-            theme={theme}
           />
         </div>
-        <SliderButton theme={theme} type='stepLeft' onClick={this.stepLeft} />
-        <SliderButton theme={theme} type='stepRight' onClick={this.stepRight} />
-        <SliderButton theme={theme} type='playBackSpeed' replaySpeed={replaySpeed} onClick={this.changeReplaySpeed} />
+        <SliderButton type='stepLeft' onClick={this.stepLeft} />
+        <SliderButton type='stepRight' onClick={this.stepRight} />
+        <SliderButton type='playBackSpeed' replaySpeed={replaySpeed} onClick={this.changeReplaySpeed} />
         <a onClick={this.handleReset}
-          style={{ textDecoration: 'underline', cursor: 'hand', color: theme.base06, flex: 1 }}
+          style={{ textDecoration: 'underline', cursor: 'hand', flex: 1 }}
         >
           <small>Reset</small>
         </a>

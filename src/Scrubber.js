@@ -2,6 +2,7 @@ import React from 'react';
 import withMouse from 'react-with-mouse';
 import ToggleStateButton from './ToggleStateButton';
 
+
 function Line({ completion, isVisible }) {
   const style = {
     borderLeftWidth: 1,
@@ -23,9 +24,10 @@ function Line({ completion, isVisible }) {
 }
 
 const ScrubberFrame = withMouse(React.createClass({
+  // whenever the mouse value ratio changes, update the
   componentWillReceiveProps(nextProps) {
     if (nextProps.isSuspended) {
-      nextProps.jumpToState(nextProps.mouse.ratio.x);
+      nextProps.jumpToTimelinePoint(nextProps.mouse.ratio.x);
     }
   },
 
@@ -85,13 +87,13 @@ export const ScrubberAction = ({ children }) => React.createElement('div', {
   }
 }, children);
 
-const Scrubber = ({ actions, isVisible, children }) => (
+const Scrubber = ({ actions, isVisible, currentAction, children }) => (
   <ScrubberContainer>
     <ScrubberAction>select a state</ScrubberAction>
-    <ScrubberFrame isSuspended={isVisible} onClick={actions.hideTools} jumpToState={actions.jumpToState}>
+    <ScrubberFrame isSuspended={isVisible} onClick={actions.hideTools} jumpToTimelinePoint={actions.jumpToTimelinePoint}>
       {children}
     </ScrubberFrame>
-    <ToggleStateButton onPress={actions.showTools} withAction={isVisible} />
+    <ToggleStateButton onPress={actions.showTools} withAction={isVisible} currentAction={currentAction} />
   </ScrubberContainer>
 );
 

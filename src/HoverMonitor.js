@@ -22,14 +22,22 @@ export default class HoverMonitor extends Component {
   }
 
   render() {
-    const { children, dispatch, monitorState, computedStates } = this.props;
+    const {
+      children,
+      dispatch,
+      monitorState,
+      computedStates,
+      actionsById,
+      currentStateIndex
+    } = this.props;
     const { isVisible } = monitorState;
 
     return React.createElement(Scrubber, {
+      currentAction: actionsById[currentStateIndex],
       actions: {
         showTools() { dispatch(showTools()); },
         hideTools() { dispatch(hideTools()); },
-        jumpToState(ratio) {
+        jumpToTimelinePoint(ratio) {
           dispatch(jumpToState(Math.floor(ratio * computedStates.length)));
         }
       },
