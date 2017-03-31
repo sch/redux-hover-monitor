@@ -1,7 +1,5 @@
 ## Redux Timeline
 
-[![npm version](https://img.shields.io/npm/v/redux-slider-monitor.svg?style=flat-square)](https://www.npmjs.com/package/redux-slider-monitor)
-
 ![hover monitor in action](http://g.recordit.co/Tnzt5F7yV5.gif)
 
 Redux Timeline is a small drop-in developer tool for jumping back in time to
