@@ -1,7 +1,25 @@
-## Redux Slider Monitor
+## Redux Timeline
 
 [![npm version](https://img.shields.io/npm/v/redux-slider-monitor.svg?style=flat-square)](https://www.npmjs.com/package/redux-slider-monitor)
 
-A custom monitor for use with [Redux DevTools](https://github.com/gaearon/redux-devtools).
+![hover monitor in action](http://g.recordit.co/Tnzt5F7yV5.gif)
 
-The `SliderMonitor` component is intended to be integrated into your app as a **complementary UI** for your application — a devtool that blends into the background and is available when you need it to go back to a previous state in your app.
+Redux Timeline is a small drop-in developer tool for jumping back in time to
+a previous point in your Redux app's session. Its goal is to be out-of-the-way
+until you need to inspect the state of your app or jump to a known good state.
+
+```js
+import { Timeline } from "redux-timeline";
+import { Provider } from "react-redux";
+import App from "./App";
+
+function App ({ store }) {
+  return (
+    <Provider store={createStore()}>
+      <Timeline>
+        <App/>
+      </Timeline>
+    </Provider>
+  );
+}
+```
